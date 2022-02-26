@@ -1,0 +1,157 @@
+
+
+
+int IN=4; // ingreso
+int RE= 2; // registro
+int AL= 3; //Almacenamiento
+
+
+int NUM=0;
+
+int convertir_binario(int NUM);
+
+void setup()
+{
+  Serial.begin(4800);
+  for(int i=2;i<=4;i++){
+  	pinMode(i,OUTPUT);
+
+  }
+  
+}
+
+void loop()
+{
+  if(Serial.available()>0){ // si detecta algo en serial
+    NUM=Serial.parseInt(); // toma en datos el entero en serial
+    convertir_binario(NUM); 
+  }
+  
+
+}
+
+int convertir_binario(int NUM){
+  for(int i=1;i<=8;){
+	digitalWrite(AL,0);
+    if(NUM>=128){  // si el numero es mayor a 128 registrar un 1
+        digitalWrite(RE,0);
+      	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-128;
+      	i++;}
+    
+    else { //si no lo es registrar un 0
+      	digitalWrite(RE,0);
+      	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+   	
+    if(NUM>=64){//Si es mayor a 64 registrar 1
+      	digitalWrite(RE,0);      
+      	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+      	NUM=NUM-64;
+        i++;
+    }
+    
+    else{
+      	digitalWrite(RE,0);    	
+      	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+    
+    if(NUM>=32){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-32;
+      	i++;}
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+    
+    if(NUM>=16){
+		digitalWrite(RE,0);      
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-16;
+      i++;}
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+    
+
+    if(NUM>=8){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-8;
+      i++;} 
+    
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+
+    
+    if(NUM>=4){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-4;
+      i++;}     
+ 
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}  
+	
+    
+    if(NUM>=2){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-2;
+      i++;}    
+        
+    
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}    
+    
+    
+      if(NUM>=1){
+        digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-1;
+      i++;}
+    
+    
+    else{
+      	digitalWrite(RE,0);      
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}    
+    
+    
+
+  }// final for
+digitalWrite(AL,1);
+
+
+  	
+}// final funcion
