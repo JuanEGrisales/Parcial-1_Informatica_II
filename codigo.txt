@@ -1,24 +1,37 @@
-
-
-
 int IN=4; // ingreso
 int RE= 2; // registro
 int AL= 3; //Almacenamiento
+int INCL= 7; // ingreso clave
+int RECL= 5; // registro clave
+int ALCL= 6; // almacenamiento clave
 
 
 int NUM=0;
+int clave;
 
-int convertir_binario(int NUM);
+int convertir_binario(int NUM); // funcion para convertir a vinario
+int clave_binario(int clave);  // funcion para ingreso y visualizacion de clave
 
 void setup()
 {
   Serial.begin(4800);
-  for(int i=2;i<=4;i++){
+  for(int i=2;i<=7;i++){
   	pinMode(i,OUTPUT);
 
   }
+  Serial.println("Ingrese la calve");
+  delay(2000);
+  clave=Serial.parseInt();
+  Serial.print("La clave es: ");
+  Serial.println(clave);  
+  clave_binario(clave); // funcion para registrar la clave
+ 
   
 }
+
+
+
+
 
 void loop()
 {
@@ -29,6 +42,12 @@ void loop()
   
 
 }
+
+
+
+
+//==================================================================
+
 
 int convertir_binario(int NUM){
   for(int i=1;i<=8;){
@@ -154,4 +173,130 @@ digitalWrite(AL,1);
 
 
   	
+}// final funcion
+
+//========================================================
+
+int clave_binario(int clave){
+  for(int i=1;i<=8;){
+	digitalWrite(ALCL,0);
+    if(clave>=128){  // si el numero es mayor a 128 registrar un 1
+        digitalWrite(RECL,0);
+      	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-128;
+      	i++;}
+    
+    else { //si no lo es registrar un 0
+      	digitalWrite(RECL,0);
+      	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+   	
+    if(clave>=64){//Si es mayor a 64 registrar 1
+      	digitalWrite(RECL,0);      
+      	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+      	clave=clave-64;
+        i++;
+    }
+    
+    else{
+      	digitalWrite(RECL,0);    	
+      	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+    
+    if(clave>=32){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-32;
+      	i++;}
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+    
+    if(clave>=16){
+		digitalWrite(RECL,0);      
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-16;
+      i++;}
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+    
+
+    if(clave>=8){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-8;
+      i++;} 
+    
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+
+    
+    if(clave>=4){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-4;
+      i++;}     
+ 
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}  
+	
+    
+    if(clave>=2){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-2;
+      i++;}    
+        
+    
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}    
+    
+    
+      if(clave>=1){
+        digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-1;
+      i++;}
+    
+    
+    else{
+      	digitalWrite(RECL,0);      
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}    
+    
+    
+
+  }// final for
+digitalWrite(ALCL,1);
+
 }// final funcion
