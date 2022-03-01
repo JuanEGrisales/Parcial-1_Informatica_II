@@ -1,3 +1,7 @@
+//Arduino 1
+
+
+
 int IN=4; // ingreso
 int RE= 2; // registro
 int AL= 3; //Almacenamiento

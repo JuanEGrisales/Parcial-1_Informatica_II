@@ -1,0 +1,43 @@
+//Arduino 2
+
+
+
+int cadena[500]; // variables del otro arduino
+char mensaje[32]; // variables del otro arduino
+int entrada=11;
+int clave;
+int num, contador=0, con,aumento=0;
+char letra;
+int referencia,contador2=1,contadorchar;
+
+
+
+void setup()
+{
+  pinMode(entrada,INPUT);
+
+}
+
+void loop()
+{
+  
+    if(digitalRead(entrada)==LOW){
+  	        for(int j=referencia+1;contador2<=clave;contador2++,j++){
+
+            if(contador2==clave){
+                if(cadena[j-1]%2==0){
+                    letra=cadena[j];
+                    mensaje[contadorchar+aumento]=letra;
+                    aumento++;
+                }
+            }
+
+        }
+
+  
+  }
+
+  	
+  
+
+}
