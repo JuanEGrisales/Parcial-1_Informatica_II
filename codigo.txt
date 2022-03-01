@@ -1,0 +1,340 @@
+//Arduino 1
+#include <iostream>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+
+/*Esta funcion permite pasar un arreglo de caracter o un string, 
+que este separado por comas (',') a un arreglo de enteros.*/
+
+string cadana_Array(string cadena){
+    int aux[20]={};
+    int l=0,i=0;
+    string lectura;
+    stringstream input_stringstream(cadena);   // Convierte la cadena a un stream
+    while (getline(input_stringstream, lectura, ',')||getline(input_stringstream, lectura, '\0')) //tomar los valores que estan antes de la coma o el salto de linea
+
+    {
+        l=atoi(lectura.c_str()); // funcion que coge cada caracter del arreglo y lo pasa a un numero entero
+        aux[i]=l;
+        cout << "Un valor: " << lectura << endl;
+        cout << "Un aux[i]: " << *aux << endl;
+        i++;
+    }
+    return 0;
+};
+
+
+
+
+
+int IN=4; // ingreso
+int RE= 2; // registro
+int AL= 3; //Almacenamiento
+int INCL= 7; // ingreso clave
+int RECL= 5; // registro clave
+int ALCL= 6; // almacenamiento clave
+
+
+int NUM=0;
+int clave;
+
+int convertir_binario(int NUM); // funcion para convertir a binario
+int clave_binario(int clave);  // funcion para ingreso y visualizacion de clave
+
+void setup()
+{
+
+string cadena = "56,74,95,13,64,73,89,67,34,75,27,84"; // La cadena que vamos a separar para pasar a entero
+cadana_Array(cadena);
+
+
+
+  Serial.begin(4800);
+  for(int i=2;i<=7;i++){
+  	pinMode(i,OUTPUT);
+
+  }
+  Serial.println("Ingrese la clave");
+  delay(2000);
+  clave=Serial.parseInt();
+  Serial.print("La clave es: ");
+  Serial.println(clave);  
+  clave_binario(clave); // funcion para registrar la clave
+ 
+  
+}
+
+
+
+
+
+void loop()
+{
+  if(Serial.available()>0){ // si detecta algo en serial
+    NUM=Serial.parseInt(); // toma en datos el entero en serial
+    convertir_binario(NUM); 
+  }
+  
+
+}
+
+
+
+
+//==================================================================
+
+
+int convertir_binario(int NUM){
+  for(int i=1;i<=8;){
+	digitalWrite(AL,0);
+    if(NUM>=128){  // si el numero es mayor a 128 registrar un 1
+        digitalWrite(RE,0);
+      	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-128;
+      	i++;}
+    
+    else { //si no lo es registrar un 0
+      	digitalWrite(RE,0);
+      	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+   	
+    if(NUM>=64){//Si es mayor a 64 registrar 1
+      	digitalWrite(RE,0);      
+      	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+      	NUM=NUM-64;
+        i++;
+    }
+    
+    else{
+      	digitalWrite(RE,0);    	
+      	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+    
+    if(NUM>=32){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-32;
+      	i++;}
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+    
+    if(NUM>=16){
+		digitalWrite(RE,0);      
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-16;
+      i++;}
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+    
+
+    if(NUM>=8){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-8;
+      i++;} 
+    
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}
+
+    
+    if(NUM>=4){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-4;
+      i++;}     
+ 
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}  
+	
+    
+    if(NUM>=2){
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-2;
+      i++;}    
+        
+    
+    
+    else{
+      	digitalWrite(RE,0);
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}    
+    
+    
+      if(NUM>=1){
+        digitalWrite(RE,0);
+    	digitalWrite(IN,1);
+      	digitalWrite(RE,1);
+		NUM=NUM-1;
+      i++;}
+    
+    
+    else{
+      	digitalWrite(RE,0);      
+    	digitalWrite(IN,0);
+      	digitalWrite(RE,1);
+      	i++;}    
+    
+    
+
+  }// final for
+digitalWrite(AL,1);
+
+
+  	
+}// final funcion
+
+//========================================================
+
+int clave_binario(int clave){
+  for(int i=1;i<=8;){
+	digitalWrite(ALCL,0);
+    if(clave>=128){  // si el numero es mayor a 128 registrar un 1
+        digitalWrite(RECL,0);
+      	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-128;
+      	i++;}
+    
+    else { //si no lo es registrar un 0
+      	digitalWrite(RECL,0);
+      	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+   	
+    if(clave>=64){//Si es mayor a 64 registrar 1
+      	digitalWrite(RECL,0);      
+      	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+      	clave=clave-64;
+        i++;
+    }
+    
+    else{
+      	digitalWrite(RECL,0);    	
+      	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+    
+    if(clave>=32){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-32;
+      	i++;}
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+    
+    if(clave>=16){
+		digitalWrite(RECL,0);      
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-16;
+      i++;}
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+    
+
+    if(clave>=8){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-8;
+      i++;} 
+    
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}
+
+    
+    if(clave>=4){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-4;
+      i++;}     
+ 
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}  
+	
+    
+    if(clave>=2){
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-2;
+      i++;}    
+        
+    
+    
+    else{
+      	digitalWrite(RECL,0);
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}    
+    
+    
+      if(clave>=1){
+        digitalWrite(RECL,0);
+    	digitalWrite(INCL,1);
+      	digitalWrite(RECL,1);
+		clave=clave-1;
+      i++;}
+    
+    
+    else{
+      	digitalWrite(RECL,0);      
+    	digitalWrite(INCL,0);
+      	digitalWrite(RECL,1);
+      	i++;}    
+    
+    
+
+  }// final for
+digitalWrite(ALCL,1);
+
+}// final funcion
