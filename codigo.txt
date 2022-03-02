@@ -4,6 +4,8 @@
 #include <sstream>
 
 using namespace std;
+int *numeros = new int[1];//variable global que va almacenando el arreglo en numeros
+
 
 
 /*Esta funcion permite pasar un arreglo de caracter o un string, 
@@ -18,9 +20,10 @@ string cadana_Array(string cadena){
 
     {
         l=atoi(lectura.c_str()); // funcion que coge cada caracter del arreglo y lo pasa a un numero entero
-        aux[i]=l;
-        cout << "Un valor: " << lectura << endl;
-        cout << "Un aux[i]: " << *aux << endl;
+        //aux[i]=l;
+        numeros[i]=l;
+        //cout << "Un valor: " << lectura << endl;
+        //cout << "Un aux[i]: " << *aux << endl;
         i++;
     }
     return 0;
